@@ -4,15 +4,18 @@ class List
 public:
 	List() : head(nullptr) {}
 	~List() {}
-	//void insert(int index, int val);
-	//void remove(int index);
-	Node *get_end() const;
+	bool insert(int index, int val);
+	bool remove(int index);
 	void push(int val);
 	int pop();
 	int get(int index, int error) const;
 	bool set(int index, int val);
-private:
+	
+	int length() const;
+	
 	Node *get_ptr(int index) const;
+private:
+	Node *get_end() const;
 	Node *head;
 };
 
@@ -34,7 +37,7 @@ Node *List::get_end() const
 Node *List::get_ptr(int index) const
 {
 	Node *p = head;
-	while ((index >= 0) && (p != nullptr))
+	while ((index > 0) && (p != nullptr))
 	{
 		if (p == nullptr)
 			break;
@@ -69,6 +72,42 @@ int List::pop()
 	return val;
 }
 
+bool List::insert(int index, int val)
+{
+	Node *p = get_ptr(index);
+	if (p == nullptr)
+	{
+		return true;
+	} else {
+		Node *n = new Node(p, p->get_next(), val);
+		p->set_next(n);
+		(p->get_next())->set_prev(n);
+		return false;
+	}
+}
+
+bool List::remove(int index)
+{
+	Node *x = get_ptr(index);
+	if (x == nullptr)
+	{
+		return true;
+	} else {
+		Node *n = x->get_next();
+		Node *p = x->get_prev();
+		if (p != nullptr)
+		{
+			p->set_next(n);
+		}
+		if (n != nullptr)
+		{
+			n->set_prev(p);
+		}
+		delete x;
+		return false;
+	}
+}
+
 int List::get(int index, int error = 0) const
 {
 	Node *p = get_ptr(index);
@@ -90,4 +129,16 @@ bool List::set(int index, int val)
 		p->set_val(val);
 		return false;
 	}
+}
+
+int List::length() const
+{
+	Node *p = head;
+	int i = 0;
+	while (p != nullptr)
+	{
+		i++;
+		p = p->get_next();
+	}
+	return i;
 }
