@@ -5,9 +5,9 @@ public:
 	Node(Node *, Node *, int);
 	~Node() {}
 
-	void recursive_delete();
-	Node *safe_delete();
-	
+	//~ void recursive_delete();
+	//~ Node *safe_delete();
+
     void set_val(int val);
     int get_val() const;
     
@@ -26,31 +26,31 @@ private:
 Node::Node(Node *prev, Node *next, int val) :
 prev(prev), next(next), val(val) {}
 
-void Node::recursive_delete()
-{
-	if (next != nullptr)
-		next->recursive_delete();
-	delete this;
-}
+//~ void Node::recursive_delete()
+//~ {
+	//~ if (next != nullptr)
+		//~ next->recursive_delete();
+	//~ delete this;
+//~ }
 
-Node *Node::safe_delete()
-{
-	Node *p;
-	Node *q;
-	if (prev == nullptr)
-	{
-		p = next;
-		if (next != nullptr)
-			next->prev = nullptr;
-	} else {
-		p = prev;
-		prev->next = next;
-		if (next != nullptr)
-			next->prev = prev;
-	}
-	delete this;
-	return p;
-}
+//~ Node *Node::safe_delete()
+//~ {
+	//~ Node *p;
+	//~ Node *q;
+	//~ if (prev == nullptr)
+	//~ {
+		//~ p = next;
+		//~ if (next != nullptr)
+			//~ next->prev = nullptr;
+	//~ } else {
+		//~ p = prev;
+		//~ prev->next = next;
+		//~ if (next != nullptr)
+			//~ next->prev = prev;
+	//~ }
+	//~ delete this;
+	//~ return p;
+//~ }
 
 int Node::get_val() const
 {
